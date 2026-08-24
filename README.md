@@ -2,7 +2,7 @@
 
 Order and buy list for Black Rock City 2026, staged out of Las Vegas.
 
-**Live page:** https://bulat-personal.github.io/playa-run/
+**Live page:** https://bulat-eng.github.io/playa-run/
 
 Single self-contained HTML file. Checkboxes persist in the browser via
 `localStorage`, so ticking items on your phone in a store survives a reload.
