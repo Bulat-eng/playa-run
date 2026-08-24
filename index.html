@@ -149,6 +149,35 @@ li.done .itm span{color:var(--faint);}
 .t-ask{color:var(--alert);background:var(--alert-soft);}
 .t-have{color:var(--ok);background:var(--ok-soft);}
 
+details.fold{margin:0 0 40px;}
+details.fold > summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:flex-end;gap:12px;
+  border-bottom:1px solid var(--ink);padding-bottom:6px;
+}
+details.fold > summary::-webkit-details-marker{display:none;}
+details.fold > summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+.chev{
+  font-family:var(--f-mono);font-size:10px;color:var(--muted);
+  padding-bottom:4px;transition:transform .15s;display:inline-block;
+}
+details.fold[open] .chev{transform:rotate(90deg);}
+.done-tag{
+  font-family:var(--f-mono);font-size:9.5px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.08em;padding:2px 6px;
+  border:1px solid currentColor;color:var(--ok);background:var(--ok-soft);
+  white-space:nowrap;line-height:1.5;margin-bottom:2px;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.fold-body{padding-top:14px;}
+.recap{list-style:none;margin:0 0 16px;padding:0;border:1px solid var(--rule);background:var(--panel-2);}
+.recap li{
+  padding:7px 14px;border-bottom:1px solid var(--rule-soft);
+  color:var(--faint);font-size:13.5px;
+}
+.recap li:last-child{border-bottom:0;}
+.recap li b{color:var(--muted);font-weight:600;}
+.recap li::before{content:"\2713\00a0\00a0";color:var(--ok);font-weight:700;}
 .clock{list-style:none;margin:0;padding:0;border:1px solid var(--rule);background:var(--panel);box-shadow:var(--shadow);}
 .clock > li{border-bottom:1px solid var(--rule);}
 .clock > li:last-child{border-bottom:0;}
@@ -371,30 +400,32 @@ li.done .itm span{color:var(--faint);}
   </section>
 
   <!-- ============ 3. REI ============ -->
-  <section>
-    <div class="sec-head">
+  <details class="fold" id="sec-rei">
+    <summary>
       <span class="sec-num">03</span>
       <h2>REI</h2>
-      <span class="sec-tag">pickup: Henderson, 2220 Village Walk Dr</span>
+      <span class="done-tag">bought · collect Thu</span>
+      <span class="chev">&#9656;</span>
+    </summary>
+    <div class="fold-body">
+      <p class="sec-note">
+        <strong>Nothing left to buy here.</strong> Everything is paid for and waiting at
+        <strong>Henderson, 2220 Village Walk Dr</strong> — (702) 896-7111. Ready Mon Aug 24; REI
+        holds pickup orders about 14 days. One action remains, on Thursday.
+        <a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">store page &amp; hours</a>
+      </p>
+
+      <ul class="recap">
+        <li><b>27 food pouches</b> — $285.60. Varieties changed on stock-outs; the order is the record.</li>
+        <li><b>Reliance Aqua-Tainer, 7 gal × 2</b> — 14 gal of your own supply</li>
+        <li><b>Personal water bottles × 2</b></li>
+      </ul>
+
+      <ul class="list" data-list="rei">
+        <li><input type="checkbox"><div class="itm"><b>Collect the pickup order — Thursday</b><span>Bring photo ID and the order number. Closes 9pm weekdays.<br><a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">rei.com/stores/henderson</a></span></div><span class="tag t-ask">to do</span></li>
+      </ul>
     </div>
-    <p class="sec-note">
-      <strong>Order placed — 27 pouches, $285.60.</strong> Ready Mon Aug 24, collected Thursday;
-      REI holds pickup orders about 14 days, so the gap is fine. Varieties changed on stock-outs, so
-      the old item numbers are gone — the order itself is the record now. Below is what still needs
-      grabbing in-store at the counter.
-      (702) 896-7111 ·
-      <a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">store page &amp; hours</a>
-    </p>
-
-    <ul class="list" data-list="rei">
-      <li class="grp">Already ordered</li>
-      <li><input type="checkbox"><div class="itm"><b>Collect the Henderson pickup order</b><span>27 pouches. Bring ID and the order number.<br><a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">rei.com/stores/henderson</a></span></div><span class="tag t-buy">buy</span></li>
-
-      <li class="grp">Grab in-store at the counter</li>
-      <li><input type="checkbox"><div class="itm"><b>Reliance Aqua-Tainer, 7 gal × 2</b><span><em>14 gal total · ~$25 ea</em> — the rectangular handled jug. Camp has water; these are your own supply. Check Henderson stock before Thursday; if it's out, a second pickup order today beats finding out at the counter.<br><a class="lnk" href="https://www.rei.com/product/618168/reliance-aqua-tainer-7-gal" target="_blank" rel="noopener">rei.com · Aqua-Tainer 7 gal</a></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Personal water bottles × 2</b><span><a class="lnk" href="https://www.rei.com/c/water-bottles" target="_blank" rel="noopener">rei.com · water bottles</a></span></div><span class="tag t-buy">buy</span></li>
-    </ul>
-  </section>
+  </details>
 
   <!-- ============ 4. HOME DEPOT ============ -->
   <section>
@@ -526,6 +557,16 @@ li.done .itm span{color:var(--faint);}
     var t  = b.closest("li").querySelector(".itm b");
     b.dataset.label = ((h2 ? h2.textContent.trim() : "") + " · " + (t ? t.textContent.trim() : "")).trim();
   });
+
+  var folds = Array.prototype.slice.call(document.querySelectorAll("details.fold"));
+  function openFolds() { folds.forEach(function (d) { d.dataset.was = d.open ? "1" : "0"; d.open = true; }); }
+  function restoreFolds() { folds.forEach(function (d) { d.open = d.dataset.was === "1"; }); }
+  if (window.matchMedia) {
+    var mq = window.matchMedia("print");
+    if (mq.addEventListener) mq.addEventListener("change", function (e) { e.matches ? openFolds() : restoreFolds(); });
+  }
+  window.addEventListener("beforeprint", openFolds);
+  window.addEventListener("afterprint", restoreFolds);
 
   var state = { updated: null, checked: {}, done: [] };
   var cap = null, readOnly = false, timer = null;
