@@ -177,6 +177,7 @@ li.done .itm span{color:var(--faint);}
   font-family:var(--f-mono);font-size:11px;text-transform:uppercase;
   letter-spacing:.08em;color:var(--muted);
 }
+#sync{color:var(--faint);white-space:nowrap;font-size:10px;}
 .bar{flex:1;height:4px;background:var(--rule);overflow:hidden;}
 .bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .2s;}
 .btn{
@@ -532,31 +533,6 @@ li.done .itm span{color:var(--faint);}
     </ul>
   </section>
 
-  <!-- ============ 8. CUT ============ -->
-  <section>
-    <div class="sec-head">
-      <span class="sec-num">08</span>
-      <h2>Cut</h2>
-      <span class="sec-tag">not buying</span>
-    </div>
-    <ul class="list" data-list="skip">
-      <li><input type="checkbox"><div class="itm"><b>Gifting, entirely</b><span></span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Tent extension cord</b><span>Buying the lighted-end outdoor cord only</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Rebar, rebar caps, sledge/mallet, ground tarp</b><span></span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>5 gal bucket + lid, bungee cords, broom + dustpan</b><span></span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Vinegar + spray bottle, moisturizing lotion, repair cream</b><span></span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Sunscreen</b><span>Already have it</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Towels, comb, tweezers, nail clippers</b><span></span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Reno hotel, Sep 7–8</b><span>Nothing refundable available — skipped</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Propane stove, isobutane canisters, insulated bag</b><span>Not cooking — the kettle is the only heat source</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Chocolate, almond butter pouches</b><span>Melted last year</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Cooler and everything cold</b><span>Frozen vegetables, frozen jugs, fresh fruit, cheese</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Tent, poles, fly</b><span>From your friends</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Shade tarps, ratchet straps</b><span>Camp provides shade</span></div></li>
-      <li><input type="checkbox"><div class="itm"><b>Template extras</b><span>Body paint, temporary tattoos, makeup, spinning fuel, balloons, poster tube, vacuum bags, packing cubes</span></div></li>
-    </ul>
-  </section>
-
   <p class="foot">
     Built from the Burning Man Supplies template, REI order #A382376840, the Target return records,
     and the Las Vegas Aug 2026 itinerary. Will Call hours from the
@@ -566,6 +542,7 @@ li.done .itm span{color:var(--faint);}
 
   <div class="prog no-print">
     <span id="count">0 / 0 done</span>
+    <span id="sync"></span>
     <span class="bar"><i id="fill"></i></span>
     <button class="btn" id="print" type="button">Print</button>
     <button class="btn" id="reset" type="button">Reset</button>
@@ -574,48 +551,120 @@ li.done .itm span{color:var(--faint);}
 
 <script>
 (function () {
-  var KEY = "playa-run-v5";
+  var LOCAL_KEY = "playa-run-v5";
   var boxes = Array.prototype.slice.call(document.querySelectorAll(".list input[type=checkbox]"));
   var countEl = document.getElementById("count");
-  var fillEl = document.getElementById("fill");
+  var fillEl  = document.getElementById("fill");
+  var syncEl  = document.getElementById("sync");
 
-  boxes.forEach(function (b, i) { b.dataset.k = i; });
+  // Stable key per item: list name + position. Also capture a readable label.
+  boxes.forEach(function (b, i) {
+    var list = b.closest(".list");
+    var name = (list && list.getAttribute("data-list")) || "x";
+    var n = 0, sib = b.closest("li");
+    while (sib) { if (sib.querySelector && sib.querySelector("input[type=checkbox]")) n++; sib = sib.previousElementSibling; }
+    b.dataset.k = name + ":" + n;
+    var sec = b.closest("section");
+    var h2 = sec && sec.querySelector("h2");
+    var t  = b.closest("li").querySelector(".itm b");
+    b.dataset.label = ((h2 ? h2.textContent.trim() : "") + " · " + (t ? t.textContent.trim() : "")).trim();
+  });
 
-  function load() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
-    catch (e) { return {}; }
-  }
-  function save(state) {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
-  }
+  var state = { updated: null, checked: {}, done: [] };
+  var cap = null, readOnly = false, timer = null;
+
   function paint(b) { b.closest("li").classList.toggle("done", b.checked); }
+
   function tally() {
     var n = boxes.filter(function (b) { return b.checked; }).length;
     countEl.textContent = n + " / " + boxes.length + " done";
     fillEl.style.width = (boxes.length ? (n / boxes.length) * 100 : 0) + "%";
   }
 
-  var state = load();
-  boxes.forEach(function (b) {
-    if (state[b.dataset.k]) b.checked = true;
-    paint(b);
-    b.addEventListener("change", function () {
-      state[b.dataset.k] = b.checked;
-      save(state);
-      paint(b);
-      tally();
-    });
-  });
-  tally();
+  function status(msg) { if (syncEl) syncEl.textContent = msg; }
 
-  document.getElementById("reset").addEventListener("click", function () {
-    boxes.forEach(function (b) { b.checked = false; paint(b); });
-    state = {};
-    save(state);
+  function collect() {
+    var checked = {}, done = [];
+    boxes.forEach(function (b) {
+      if (b.checked) { checked[b.dataset.k] = true; done.push(b.dataset.label); }
+    });
+    return { updated: new Date().toISOString(), checked: checked, done: done.sort() };
+  }
+
+  function apply(s) {
+    var c = (s && s.checked) || {};
+    boxes.forEach(function (b) { b.checked = !!c[b.dataset.k]; paint(b); });
     tally();
-  });
-  document.getElementById("print").addEventListener("click", function () {
-    window.print();
+  }
+
+  function saveLocal(s) {
+    try { localStorage.setItem(LOCAL_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  function loadLocal() {
+    try { return JSON.parse(localStorage.getItem(LOCAL_KEY)); } catch (e) { return null; }
+  }
+
+  function savePublished() {
+    if (!cap || readOnly) { status("saved on this device"); return; }
+    status("saving…");
+    cap.publish({ "state.json": JSON.stringify(state, null, 2) }).then(function () {
+      status("saved · " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }));
+    }, function (err) {
+      var code = (err && err.code) || "upstream_error";
+      if (code === "conflict") return;                       // view reloads to the winner
+      if (code === "rate_limited") { status("saving…"); setTimeout(savePublished, 8000); return; }
+      readOnly = true;
+      status("saved on this device");
+    });
+  }
+
+  function onChange(b) {
+    paint(b); tally();
+    state = collect();
+    saveLocal(state);
+    clearTimeout(timer);
+    timer = setTimeout(savePublished, 2000);
+  }
+
+  function wire() {
+    boxes.forEach(function (b) {
+      b.addEventListener("change", function () { onChange(b); });
+    });
+    document.getElementById("reset").addEventListener("click", function () {
+      boxes.forEach(function (b) { b.checked = false; paint(b); });
+      state = collect(); saveLocal(state); tally();
+      clearTimeout(timer); timer = setTimeout(savePublished, 500);
+    });
+    document.getElementById("print").addEventListener("click", function () { window.print(); });
+  }
+
+  function boot(published) {
+    var local = loadLocal();
+    var pick = published;
+    if (!pick || (local && local.updated && (!published.updated || local.updated > published.updated))) {
+      pick = local || published || { checked: {} };
+    }
+    state = pick || { checked: {} };
+    apply(state);
+    wire();
+    status(cap && !readOnly ? "synced" : "saved on this device");
+  }
+
+  // state.json lives beside the page on the artifact; absent on static hosting.
+  function fetchPublished() {
+    return fetch("state.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
+  var haveCap = (typeof window !== "undefined" && window.claude && typeof window.claude.use === "function")
+    ? window.claude.use("artifact").catch(function () { return null; })
+    : Promise.resolve(null);
+
+  Promise.all([haveCap, fetchPublished()]).then(function (r) {
+    cap = r[0];
+    boot(r[1]);
   });
 })();
 </script>
