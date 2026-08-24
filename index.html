@@ -1,0 +1,627 @@
+<title>Playa Run</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Saira+Condensed:wght@600;700&display=swap">
+
+<style>
+:root{
+  --ground:#EDEEE9; --panel:#FFFFFF; --panel-2:#F5F6F2;
+  --ink:#191C18; --muted:#676C63; --faint:#8B9086;
+  --rule:#D5D7CF; --rule-soft:#E3E5DE;
+  --accent:#1F4ED8; --accent-soft:#E3E9FC;
+  --alert:#B4530A; --alert-soft:#F8EADC;
+  --ok:#3F6B4A; --ok-soft:#E2EDE4;
+  --shadow:0 1px 2px rgba(25,28,24,.05), 0 8px 24px -16px rgba(25,28,24,.22);
+  --f-display:"Saira Condensed", "Arial Narrow", sans-serif;
+  --f-body:"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#131511; --panel:#1C1E19; --panel-2:#212420;
+    --ink:#E8E9E3; --muted:#9BA095; --faint:#7C8177;
+    --rule:#31352C; --rule-soft:#282B24;
+    --accent:#8AA6FF; --accent-soft:#1E2740;
+    --alert:#E0A165; --alert-soft:#33271A;
+    --ok:#84BC92; --ok-soft:#1D2A20;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#131511; --panel:#1C1E19; --panel-2:#212420;
+  --ink:#E8E9E3; --muted:#9BA095; --faint:#7C8177;
+  --rule:#31352C; --rule-soft:#282B24;
+  --accent:#8AA6FF; --accent-soft:#1E2740;
+  --alert:#E0A165; --alert-soft:#33271A;
+  --ok:#84BC92; --ok-soft:#1D2A20;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--f-body);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:28px 20px 96px;}
+
+.mast{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:22px;}
+.mast-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;justify-content:space-between;}
+h1{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(38px,9vw,62px);line-height:.92;
+  letter-spacing:-.01em;text-transform:uppercase;margin:0;text-wrap:balance;
+}
+.mast-meta{
+  font-family:var(--f-mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--muted);text-align:right;
+}
+.dek{margin:12px 0 0;max-width:64ch;color:var(--muted);font-size:15px;}
+.dek strong{color:var(--ink);font-weight:600;}
+
+.strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:22px 0 34px;
+}
+.stat{background:var(--panel);padding:13px 15px;}
+.stat-k{
+  font-family:var(--f-mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.11em;color:var(--faint);display:block;margin-bottom:5px;
+}
+.stat-v{
+  font-family:var(--f-display);font-weight:700;font-size:29px;line-height:1;
+  letter-spacing:.005em;font-variant-numeric:tabular-nums;
+}
+.stat-v small{font-family:var(--f-body);font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0;}
+.stat.is-alert .stat-v{color:var(--alert);}
+.stat.is-ok .stat-v{color:var(--ok);}
+
+section{margin:0 0 40px;}
+.sec-head{
+  display:flex;align-items:flex-end;gap:12px;
+  border-bottom:1px solid var(--ink);padding-bottom:6px;margin-bottom:4px;
+}
+.sec-num{font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--accent);letter-spacing:.06em;padding-bottom:3px;}
+h2{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(21px,3.4vw,27px);line-height:1;
+  text-transform:uppercase;letter-spacing:.005em;margin:0;flex:1;
+}
+.sec-tag{
+  font-family:var(--f-mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.09em;color:var(--muted);padding-bottom:3px;text-align:right;
+}
+.sec-note{color:var(--muted);margin:12px 0 16px;max-width:66ch;font-size:14.5px;}
+.sec-note strong{color:var(--ink);font-weight:600;}
+.sec-note a{color:var(--accent);}
+
+.list{
+  list-style:none;margin:0;padding:0;border:1px solid var(--rule);
+  background:var(--panel);box-shadow:var(--shadow);
+}
+.list li{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:start;
+  gap:0 12px;padding:10px 14px;border-bottom:1px solid var(--rule-soft);
+}
+.list li:last-child{border-bottom:0;}
+.list li.grp{
+  background:var(--panel-2);grid-template-columns:1fr;
+  font-family:var(--f-mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.11em;color:var(--faint);padding:8px 14px 7px;
+}
+.list input[type=checkbox]{
+  appearance:none;-webkit-appearance:none;width:15px;height:15px;margin:4px 0 0;
+  border:1.5px solid var(--faint);background:transparent;cursor:pointer;
+  flex:none;border-radius:1px;display:grid;place-content:center;
+  transition:background .12s,border-color .12s;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.list input[type=checkbox]::after{
+  content:"";width:8px;height:8px;transform:scale(0);background:var(--panel);
+  clip-path:polygon(14% 44%,0 60%,39% 100%,100% 18%,84% 3%,37% 70%);
+  transition:transform .12s;
+}
+.list input[type=checkbox]:checked{background:var(--ok);border-color:var(--ok);}
+.list input[type=checkbox]:checked::after{transform:scale(1);}
+.list input[type=checkbox]:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.itm{min-width:0;}
+.itm b{font-weight:600;display:block;}
+.itm span{display:block;color:var(--muted);font-size:13.5px;line-height:1.45;margin-top:1px;}
+.itm span em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;color:var(--muted);}
+li.done .itm b{color:var(--faint);text-decoration:line-through;text-decoration-thickness:1px;}
+li.done .itm span{color:var(--faint);}
+
+.tag{
+  font-family:var(--f-mono);font-size:9.5px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.08em;padding:2px 6px;
+  border:1px solid currentColor;white-space:nowrap;display:inline-block;line-height:1.5;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.t-buy{color:var(--accent);background:var(--accent-soft);}
+.t-ask{color:var(--alert);background:var(--alert-soft);}
+.t-have{color:var(--ok);background:var(--ok-soft);}
+
+.clock{list-style:none;margin:0;padding:0;border:1px solid var(--rule);background:var(--panel);box-shadow:var(--shadow);}
+.clock > li{border-bottom:1px solid var(--rule);}
+.clock > li:last-child{border-bottom:0;}
+.day{
+  background:var(--panel-2);padding:9px 14px;
+  font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.11em;color:var(--ink);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.day em{font-style:normal;color:var(--faint);letter-spacing:.09em;}
+.slot{display:grid;grid-template-columns:88px 1fr;gap:0 14px;padding:10px 14px;border-bottom:1px solid var(--rule-soft);}
+.slot:last-child{border-bottom:0;}
+.slot time{
+  font-family:var(--f-mono);font-size:12px;color:var(--accent);
+  font-variant-numeric:tabular-nums;padding-top:1px;
+}
+.slot.pin time{color:var(--alert);font-weight:600;}
+.slot b{font-weight:600;display:block;}
+.slot span{display:block;color:var(--muted);font-size:13.5px;line-height:1.45;margin-top:1px;}
+@media (max-width:560px){.slot{grid-template-columns:1fr;gap:2px;}}
+
+.prog{
+  position:sticky;bottom:0;z-index:5;margin:36px -20px -96px;padding:11px 20px 13px;
+  background:var(--panel);border-top:1px solid var(--rule);
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--f-mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--muted);
+}
+.bar{flex:1;height:4px;background:var(--rule);overflow:hidden;}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .2s;}
+.btn{
+  font:inherit;text-transform:uppercase;letter-spacing:.08em;
+  background:none;border:0;color:var(--accent);cursor:pointer;padding:2px 0;
+}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media (max-width:700px){
+  .two{grid-template-columns:1fr;}
+  .mast-meta{text-align:left;}
+  .list li{padding:10px 12px;}
+}
+.foot{
+  margin-top:40px;padding-top:16px;border-top:1px solid var(--rule);
+  color:var(--faint);font-size:13px;max-width:66ch;
+}
+.foot a{color:var(--accent);}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+
+/* ================= PRINT ================= */
+@media print{
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]){
+    --ground:#FFFFFF; --panel:#FFFFFF; --panel-2:#FFFFFF;
+    --ink:#000000; --muted:#333333; --faint:#555555;
+    --rule:#999999; --rule-soft:#CCCCCC;
+    --accent:#000000; --accent-soft:transparent;
+    --alert:#000000; --alert-soft:transparent;
+    --ok:#000000; --ok-soft:transparent;
+    --shadow:none;
+  }
+  @page{ margin:14mm 12mm; }
+  body{background:#fff;color:#000;font-size:10pt;line-height:1.4;}
+  .wrap{max-width:none;padding:0;}
+  .prog, .no-print{display:none !important;}
+
+  h1{font-size:26pt;}
+  h2{font-size:13pt;}
+  .dek{font-size:9.5pt;max-width:none;}
+  .mast{border-bottom-width:1.5pt;}
+
+  .strip{grid-template-columns:repeat(4,1fr);margin:12pt 0 16pt;}
+  .stat{padding:6pt 8pt;}
+  .stat-v{font-size:16pt;}
+
+  section{margin-bottom:16pt;break-inside:auto;}
+  .sec-head{break-after:avoid;page-break-after:avoid;margin-bottom:2pt;}
+  .sec-note{margin:6pt 0 8pt;font-size:9.5pt;max-width:none;}
+
+  .list, .clock{box-shadow:none;border-color:#999;}
+  .list li{padding:4pt 8pt;break-inside:avoid;page-break-inside:avoid;}
+  .list li.grp{
+    padding:5pt 8pt 3pt;font-size:8pt;color:#000;font-weight:600;
+    border-top:1pt solid #000;border-bottom:0;
+  }
+  .itm span{font-size:8.5pt;color:#333;}
+  .list input[type=checkbox]{border:1pt solid #000;background:#fff !important;}
+  .list input[type=checkbox]:checked::after{background:#000;transform:scale(1);}
+
+  .tag{border:0.5pt solid #666;color:#333;background:transparent;font-size:7pt;padding:1pt 3pt;}
+
+  .slot{padding:4pt 8pt;break-inside:avoid;page-break-inside:avoid;}
+  .slot span{font-size:8.5pt;}
+  .day{padding:5pt 8pt;font-size:8pt;border-top:1pt solid #000;}
+  .slot.pin time{font-weight:700;text-decoration:underline;}
+
+  .two{grid-template-columns:1fr 1fr;gap:10pt;}
+  a{color:#000;text-decoration:none;}
+  .foot{font-size:8pt;margin-top:14pt;}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="mast-top">
+      <h1>Playa Run</h1>
+      <div class="mast-meta">
+        Black Rock City 2026 · Axis Mundi<br>
+        JFK → LAS Wed Aug 26 · RV Fri Aug 28<br>
+        Home from Reno Wed Sep 9
+      </div>
+    </div>
+    <p class="dek">
+      Order and buy list. Ticket and vehicle pass are in hand, tent is coming from your friends,
+      camp covers power and shade, no cooler, no gifting. Shopping happens
+      <strong>Thursday Aug 27</strong>, the one day with a car.
+      <span class="tag t-buy">buy</span> <span class="tag t-have">storage</span>
+      <span class="tag t-ask">track</span>
+    </p>
+  </header>
+
+  <div class="strip">
+    <div class="stat"><span class="stat-k">To wheels down</span><span class="stat-v">3 <small>days</small></span></div>
+    <div class="stat is-alert"><span class="stat-k">Shopping day</span><span class="stat-v">Thu <small>Aug 27</small></span></div>
+    <div class="stat is-ok"><span class="stat-k">Water hauling</span><span class="stat-v">14 <small>gal + camp</small></span></div>
+    <div class="stat"><span class="stat-k">Cash</span><span class="stat-v">$100 <small>small bills</small></span></div>
+  </div>
+
+  <!-- ============ 1. SCHEDULE ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Schedule</h2>
+      <span class="sec-tag">Boulder Station · 4111 Boulder Hwy</span>
+    </div>
+    <p class="sec-note">Orange times are fixed by a booking.</p>
+
+    <ul class="clock">
+      <li>
+        <div class="day"><span>Today · Sun Aug 23</span><em>order now</em></div>
+        <div class="slot"><time>Now</time><div><b>Place the REI order — Henderson pickup</b><span>Only item with a lead time. Set pickup for Thursday.</span></div></div>
+        <div class="slot"><time>Now</time><div><b>Reno, Sep 7–8 — refundable room</b><span>Cancel later if the friend's place lands.</span></div></div>
+        <div class="slot"><time>Now</time><div><b>Reno, Sep 7–9 — refundable car</b><span>Costco/Enterprise reserve-now-pay-later, dropping at RNO.</span></div></div>
+      </li>
+
+      <li>
+        <div class="day"><span>Mon–Tue</span><em>at home</em></div>
+        <div class="slot"><time>Any</time><div><b>Fill prescriptions — full trip plus buffer</b><span></span></div></div>
+        <div class="slot"><time>Any</time><div><b>Pack the two checked bags</b><span>70 lb each, free. Boots, warm layers, costumes, goggles — anything you already own goes now instead of being bought Thursday.</span></div></div>
+        <div class="slot"><time>Any</time><div><b>Track the AC delivery</b><span>Confirm Boulder Station accepts and holds packages under your reservation name, and get the tracking number.</span></div></div>
+      </li>
+
+      <li>
+        <div class="day"><span>Wed Aug 26</span><em>arrival · working</em></div>
+        <div class="slot pin"><time>11:30am</time><div><b>Flight out of JFK</b><span>Late morning departure</span></div></div>
+        <div class="slot pin"><time>2:01pm</time><div><b>Land Las Vegas · Uber to the hotel</b><span></span></div></div>
+        <div class="slot pin"><time>3:00pm+</time><div><b>Check in, Boulder Station</b><span>$100 deposit on a card; the property doesn't take cash. Ask the front desk whether the AC package has arrived.</span></div></div>
+      </li>
+
+      <li>
+        <div class="day"><span>Thu Aug 27</span><em>car day · working</em></div>
+        <div class="slot pin"><time>10:30am</time><div><b>Car pickup — Enterprise, 3745 Boulder Hwy</b><span>Bring the Costco card; Enterprise requires it.</span></div></div>
+        <div class="slot"><time>Around work</time><div><b>Storage unit — inventory first, load last</b><span>Mark what's missing before the stores; you need the boot space for shopping.</span></div></div>
+        <div class="slot"><time>—</time><div><b>Home Depot</b><span>1401 S Lamb Blvd, or 1030 W Sunset Rd in Henderson. Open till 10pm most days.</span></div></div>
+        <div class="slot"><time>—</time><div><b>Target</b><span>The long list, all of it small.</span></div></div>
+        <div class="slot"><time>—</time><div><b>REI Henderson pickup</b><span>2220 Village Walk Dr. Closes 9pm weekdays.</span></div></div>
+        <div class="slot"><time>Evening</time><div><b>Load the unit, stage everything in the hotel room</b><span>Seats down. Friday is then just carrying.</span></div></div>
+      </li>
+
+      <li>
+        <div class="day"><span>Fri Aug 28</span><em>RV pickup · depart</em></div>
+        <div class="slot pin"><time>10:30am</time><div><b>Drop the car — 3745 Boulder Hwy</b><span>Half a mile from the hotel; walk back.</span></div></div>
+        <div class="slot pin"><time>11:00am</time><div><b>Hotel checkout</b><span>Bell desk will hold the gear. Late checkout worth asking for.</span></div></div>
+        <div class="slot"><time>1:00–4:00pm</time><div><b>RV pickup</b><span>El Monte's Vegas depot is 3800 Boulder Hwy — between your hotel and the car drop. Cruise America is 551 Gibson Rd, Henderson. Depots allow 1–2 hours for handover.</span></div></div>
+        <div class="slot"><time>Afternoon</time><div><b>Load and roll</b><span>US-95 north through Tonopah, Hawthorne, Fallon.</span></div></div>
+      </li>
+
+      <li>
+        <div class="day"><span>Sat Aug 29 → Sun Aug 30</span><em>bike · gate</em></div>
+        <div class="slot"><time>Sat</time><div><b>Reno — bike out of the unit</b><span>Storage gates typically open around 6am and close around 10pm.</span></div></div>
+        <div class="slot"><time>Sat</time><div><b>Fernley — water, fuel, ATM</b><span>Last supermarket before the 100-mile run up SR-447.</span></div></div>
+        <div class="slot pin"><time>12:01am Sun</time><div><b>Gate opens · Will Call at the Box Office</b><span>At the front gate, before you're admitted. Photo ID matching the purchase. Box Office runs 24/7 through Sat Sep 5 noon.</span></div></div>
+      </li>
+
+      <li>
+        <div class="day"><span>Mon Sep 7 → Wed Sep 9</span><em>out</em></div>
+        <div class="slot"><time>Sep 7</time><div><b>Exodus · MOOP sweep before anything moves</b><span></span></div></div>
+        <div class="slot"><time>Sep 7–8</time><div><b>Reno — offload into the unit</b><span>Bike, cord, chair, pad, bins.</span></div></div>
+        <div class="slot pin"><time>10:33am Sep 9</time><div><b>Flight home: RNO → LAX → JFK</b><span>At RNO by 9am. Two free checked bags at 70 lb.</span></div></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============ 2. REI ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>REI — order today</h2>
+      <span class="sec-tag">pickup: Henderson, 2220 Village Walk Dr</span>
+    </div>
+    <p class="sec-note">
+      (702) 896-7111. Closer to Boulder Hwy than Boca Park. Confirm the store shows stock at
+      checkout — pickup availability is per-store. Meals are the ones you kept last year; the three
+      1-serving meals and the Beef Stroganoff are off the list. Ten pouches, 20 servings, 9 days.
+    </p>
+
+    <ul class="list" data-list="rei">
+      <li class="grp">Water</li>
+      <li><input type="checkbox"><div class="itm"><b>Reliance Aqua-Tainer, 7 gal × 2</b><span><em>14 gal total · ~$25 ea</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Personal water bottles × 2</b><span></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Meals — 2 servings each</li>
+      <li><input type="checkbox"><div class="itm"><b>Breakfast Skillet</b><span><em>#1756950001 · $12.50 · ×3</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Chicken Fajita Bowl</b><span><em>#1758800001 · $12.50 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Chicken Teriyaki Rice</b><span><em>#1827240001 · $13.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Risotto with Chicken</b><span><em>#8012230010 · $12.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Pad Thai with Chicken</b><span><em>#1342520001 · $12.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Chicken Tikka Masala</b><span><em>#2336290001 · $12.50 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Chicken Pesto Pasta</b><span><em>#1827230001 · $14.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Chicken and Dumplings</b><span><em>#1758790001 · $12.50 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Shelf-stable protein &amp; snacks</li>
+      <li><input type="checkbox"><div class="itm"><b>Provisions Wild Pink Salmon</b><span><em>#2559400001 · $10.00</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Provisions Sardines</b><span><em>#2475290002 · $8.00</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Mackerel</b><span><em>#1997430003 · $8.00</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Dried Fruit</b><span><em>#1897710001 · $10.95</em></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Heat &amp; food storage</li>
+      <li><input type="checkbox"><div class="itm"><b>Propane canister stove + small pot</b><span><em>~$40</em> — backup to the kettle</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Isobutane canisters × 2</b><span>Can't fly — Vegas or Reno only</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Soft collapsible insulated bag</b><span><em>~$20</em> — keeps food out of a 110°F tent without ice</span></div><span class="tag t-buy">buy</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 3. HOME DEPOT ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Home Depot</h2>
+      <span class="sec-tag">Thursday</span>
+    </div>
+    <p class="sec-note">
+      <strong>1401 S Lamb Blvd</strong>, or <strong>1030 W Sunset Rd, Henderson</strong> if you want
+      it on the same southeast loop as the REI pickup. Not "Mobile Home Depot" at 4305 Boulder Hwy —
+      that's a mobile-home parts store and closes at 5pm.
+    </p>
+
+    <ul class="list" data-list="hd">
+      <li class="grp">Power</li>
+      <li><input type="checkbox"><div class="itm"><b>Outdoor extension cord — 12/3 SJTW, lighted end</b><span>The lighted-end outdoor one. <em>~$35 / 50 ft · ~$70 / 100 ft</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Surge-protector power strip, 6 outlet</b><span>Kept for the AC. Keep it bagged and off the ground.</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>GFCI adapter + outlet tester</b><span></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Repair &amp; consumables</li>
+      <li><input type="checkbox"><div class="itm"><b>Zip ties — UV-black, assorted, 100+</b><span>Black survives playa sun; white goes brittle</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Gorilla tape + gaffer tape + duct tape</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Contractor bags, 3 mil, ×20</b><span>MOOP, pack-out, and bagging dusty gear for the flight home</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>N95 dust masks, 10-pack</b><span>They clog</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Work gloves</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Paracord, 100 ft</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Carabiners</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>LED lantern</b><span>Hangable light inside the tent</span></div><span class="tag t-buy">buy</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 4. TARGET ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Target</h2>
+      <span class="sec-tag">Thursday</span>
+    </div>
+
+    <ul class="list" data-list="tg">
+      <li class="grp">Heat</li>
+      <li><input type="checkbox"><div class="itm"><b>Electric kettle, 1 L stainless</b><span>Hamilton Beach, <em>~$19.99</em></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Hygiene</li>
+      <li><input type="checkbox"><div class="itm"><b>Heavy-duty wipes (Dude wipes), bulk</b><span>Replaces a shower; also cleans cutlery</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Baby wipes bulk + individual wipes</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>1-ply RV / marine toilet paper × 2</b><span>Porta-potty safe — regular 2-ply is not</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Hand sanitizer × 2</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Toothpaste, toothbrush, floss, deodorant</b><span>The hotel doesn't stock toothbrushes</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>SPF chapstick × 3</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Small hangable mirror</b><span>The $8 Room Essentials door mirror from last year</span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Medical</li>
+      <li><input type="checkbox"><div class="itm"><b>Nasal saline spray + saline eye drops</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Advil / Tylenol / antihistamine</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>First aid kit</b><span>Gauze, antiseptic, large bandaids, burn gel</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Tums, fiber supplement, liquid bandage</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Cough drops</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Backup glasses / contacts / solution</b><span>If you wear them</span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Sleep</li>
+      <li><input type="checkbox"><div class="itm"><b>Foam earplugs, multipack</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Eye mask</b><span></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Food — shelf-stable</li>
+      <li><input type="checkbox"><div class="itm"><b>Electrolyte powder — Nuun or Liquid IV</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Trail mix, jerky, protein bars</b><span>The REI pouches don't cover lunch</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Single-serve pickle pouches</b><span>Shelf-stable, unlike a jar, and loaded with electrolytes</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Instant ramen, tea packets, small hot sauce</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Hard candy, nut bars</b><span>No chocolate</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Washable bowl, plate, cup, silverware</b><span>Check the unit first</span></div><span class="tag t-have">storage</span></li>
+
+      <li class="grp">Kit</li>
+      <li><input type="checkbox"><div class="itm"><b>Ziplocs — gallon and quart</b><span>Wipes, meds, TP, food, trash</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Batteries — AA, AAA, CR2032 mixed</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>USB battery bank + multiple cables</b><span>Check the unit first</span></div><span class="tag t-have">storage</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Misting spray bottle + handheld fan</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Battery fairy lights</b><span>Cheap, and they break — buy extra</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Lighters, several</b><span>Also lights the propane stove</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Small notebook + pens</b><span>For the What Where When booklet</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Sewing kit + labels</b><span>Label the borrowed tent's parts too</span></div><span class="tag t-buy">buy</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 5. TRACK ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>In flight</h2>
+      <span class="sec-tag">ordered, not yet in hand</span>
+    </div>
+    <ul class="list" data-list="track">
+      <li><input type="checkbox"><div class="itm"><b>AC unit — delivering to Boulder Station</b><span>Confirm the hotel accepts packages under your reservation name and get the tracking number. Deadline is Friday 11am checkout — after that it has nowhere to land.</span></div><span class="tag t-ask">track</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Reno room, Sep 7–8</b><span>Refundable</span></div><span class="tag t-ask">track</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Reno car, Sep 7–9, drop at RNO</b><span>Refundable</span></div><span class="tag t-ask">track</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 6. STORAGE ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Vegas storage pull</h2>
+      <span class="sec-tag">Thursday · ends up in Reno</span>
+    </div>
+    <p class="sec-note">
+      Walk this before the stores so gaps land on the lists above. Tent, poles, fly and cooler are
+      struck. Whatever you pull leaves Vegas for good and lands in the Reno unit.
+    </p>
+
+    <div class="two">
+      <ul class="list" data-list="st1">
+        <li class="grp">Sleep</li>
+        <li><input type="checkbox"><div class="itm"><b>Inflatable sleeping pad</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Foam pad as backup</b><span>Inflatables puncture on playa grit</span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Sleeping bag + blankets</b><span>Nights drop into the 40s</span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Pillow</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Camping chair</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Bike lock, lights, seat cover</b><span>Bike's in Reno — check if these are here</span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Storage bins</b><span>For the RV, and the Reno unit after</span></div></li>
+      </ul>
+
+      <ul class="list" data-list="st2">
+        <li class="grp">Wear</li>
+        <li><input type="checkbox"><div class="itm"><b>Goggles × 2</b><span>Must work at night too</span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Sunglasses × 2, wide-brim hat</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Boots for night, sandals for day</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Warm layers, costumes, light-up clothing</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Socks × 2/day, underwear + extra</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Clean clothes for exodus, sealed</b><span></span></div></li>
+
+        <li class="grp">Carry &amp; kit</li>
+        <li><input type="checkbox"><div class="itm"><b>Camelbak / hydration pack</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Backpack or sling, fanny pack</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Headlamp, flashlights × 2</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Swiss army knife, scissors</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Bowl, cup, utensils</b><span></span></div></li>
+        <li><input type="checkbox"><div class="itm"><b>Extension cord, if you own one</b><span>Check before Home Depot</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 7. RENO ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>Reno, both directions</h2>
+      <span class="sec-tag">Aug 29 through · Sep 7–9 out</span>
+    </div>
+
+    <ul class="list" data-list="road">
+      <li class="grp">Sat Aug 29 — through</li>
+      <li><input type="checkbox"><div class="itm"><b>Bike out of the Reno unit</b><span>Gate access typically 6am–10pm</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Fill the two water containers</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Cash from an ATM — $100, small bills</b><span>Last reliable machine before the playa</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Fuel — Fernley or Fallon</b><span>Long empty stretch after; Gerlach lines are long</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Isobutane canisters, if not bought in Vegas</b><span></span></div><span class="tag t-buy">buy</span></li>
+
+      <li class="grp">Sep 7–9 — out</li>
+      <li><input type="checkbox"><div class="itm"><b>Offload into the Reno unit</b><span>Bike, cord, chair, pad, bins</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Bag the dusty gear before it flies</b><span>Contractor bags inside the checked bags</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>At RNO by 9am Wed Sep 9</b><span>Departure 10:33am. Two free checked bags at 70 lb.</span></div><span class="tag t-buy">buy</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 8. CUT ============ -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2>Cut</h2>
+      <span class="sec-tag">not buying</span>
+    </div>
+    <ul class="list" data-list="skip">
+      <li><input type="checkbox"><div class="itm"><b>Gifting, entirely</b><span></span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Tent extension cord</b><span>Buying the lighted-end outdoor cord only</span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Rebar, rebar caps, sledge/mallet, ground tarp</b><span></span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>5 gal bucket + lid, bungee cords, broom + dustpan</b><span></span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Vinegar + spray bottle, moisturizing lotion, repair cream</b><span></span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Sunscreen</b><span>Already have it</span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Towels, comb, tweezers, nail clippers</b><span></span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Chocolate, almond butter pouches</b><span>Melted last year</span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Cooler and everything cold</b><span>Frozen vegetables, frozen jugs, fresh fruit, cheese</span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Tent, poles, fly</b><span>From your friends</span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Shade tarps, ratchet straps</b><span>Camp provides shade</span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Template extras</b><span>Body paint, temporary tattoos, makeup, spinning fuel, balloons, poster tube, vacuum bags, packing cubes</span></div></li>
+    </ul>
+  </section>
+
+  <p class="foot">
+    Built from the Burning Man Supplies template, REI order #A382376840, the Target return records,
+    and the Las Vegas Aug 2026 itinerary. Will Call hours from the
+    <a href="https://help.burningman.org/hc/en-us/articles/360025851832-When-does-the-Box-Office-open-What-are-the-Will-Call-hours-for-2026">2026 Box Office page</a>.
+    Pin the store addresses in Maps before Thursday. Prices are last year's and will have drifted.
+  </p>
+
+  <div class="prog no-print">
+    <span id="count">0 / 0 done</span>
+    <span class="bar"><i id="fill"></i></span>
+    <button class="btn" id="print" type="button">Print</button>
+    <button class="btn" id="reset" type="button">Reset</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KEY = "playa-run-v5";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll(".list input[type=checkbox]"));
+  var countEl = document.getElementById("count");
+  var fillEl = document.getElementById("fill");
+
+  boxes.forEach(function (b, i) { b.dataset.k = i; });
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function paint(b) { b.closest("li").classList.toggle("done", b.checked); }
+  function tally() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    countEl.textContent = n + " / " + boxes.length + " done";
+    fillEl.style.width = (boxes.length ? (n / boxes.length) * 100 : 0) + "%";
+  }
+
+  var state = load();
+  boxes.forEach(function (b) {
+    if (state[b.dataset.k]) b.checked = true;
+    paint(b);
+    b.addEventListener("change", function () {
+      state[b.dataset.k] = b.checked;
+      save(state);
+      paint(b);
+      tally();
+    });
+  });
+  tally();
+
+  document.getElementById("reset").addEventListener("click", function () {
+    boxes.forEach(function (b) { b.checked = false; paint(b); });
+    state = {};
+    save(state);
+    tally();
+  });
+  document.getElementById("print").addEventListener("click", function () {
+    window.print();
+  });
+})();
+</script>
