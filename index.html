@@ -544,6 +544,7 @@ li.done .itm span{color:var(--faint);}
     <span id="count">0 / 0 done</span>
     <span id="sync"></span>
     <span class="bar"><i id="fill"></i></span>
+    <button class="btn" id="copy" type="button">Copy status</button>
     <button class="btn" id="print" type="button">Print</button>
     <button class="btn" id="reset" type="button">Reset</button>
   </div>
@@ -637,6 +638,18 @@ li.done .itm span{color:var(--faint);}
       clearTimeout(timer); timer = setTimeout(savePublished, 500);
     });
     document.getElementById("print").addEventListener("click", function () { window.print(); });
+    document.getElementById("copy").addEventListener("click", function () {
+      var done = [], open = [];
+      boxes.forEach(function (b) { (b.checked ? done : open).push("- " + b.dataset.label); });
+      var txt = "PLAYA RUN STATUS — " + new Date().toLocaleString() + "\n"
+              + done.length + " of " + boxes.length + " done\n\n"
+              + "DONE:\n" + (done.join("\n") || "- nothing yet") + "\n\n"
+              + "OPEN:\n" + (open.join("\n") || "- nothing left");
+      var ok = function () { status("copied — paste it to Claude"); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(ok, function () { window.prompt("Copy this:", txt); });
+      } else { window.prompt("Copy this:", txt); }
+    });
   }
 
   function boot(published) {
