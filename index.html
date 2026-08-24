@@ -131,6 +131,14 @@ h2{
 li.done .itm b{color:var(--faint);text-decoration:line-through;text-decoration-thickness:1px;}
 li.done .itm span{color:var(--faint);}
 
+.lnk{
+  display:inline-block;margin-top:3px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.03em;
+  color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor;
+}
+.lnk:hover{opacity:.7;}
+.lnk:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.sec-note .lnk{margin-top:0;}
 .tag{
   font-family:var(--f-mono);font-size:9.5px;font-weight:500;
   text-transform:uppercase;letter-spacing:.08em;padding:2px 6px;
@@ -229,6 +237,7 @@ li.done .itm span{color:var(--faint);}
   .list input[type=checkbox]{border:1pt solid #000;background:#fff !important;}
   .list input[type=checkbox]:checked::after{background:#000;transform:scale(1);}
 
+  .lnk{border-bottom:0;color:#000;font-size:8pt;}
   .tag{border:0.5pt solid #666;color:#333;background:transparent;font-size:7pt;padding:1pt 3pt;}
 
   .slot{padding:4pt 8pt;break-inside:avoid;page-break-inside:avoid;}
@@ -338,40 +347,26 @@ li.done .itm span{color:var(--faint);}
   <section>
     <div class="sec-head">
       <span class="sec-num">02</span>
-      <h2>REI — order today</h2>
+      <h2>REI</h2>
       <span class="sec-tag">pickup: Henderson, 2220 Village Walk Dr</span>
     </div>
     <p class="sec-note">
-      (702) 896-7111. Closer to Boulder Hwy than Boca Park. Confirm the store shows stock at
-      checkout — pickup availability is per-store. Meals are the ones you kept last year; the three
-      1-serving meals and the Beef Stroganoff are off the list. Ten pouches, 20 servings, 9 days.
+      <strong>Food order is placed</strong> — 21 pouches, ready Mon Aug 24, collected Thursday.
+      REI holds pickup orders about 14 days, so the three-day gap is fine. Varieties changed from
+      last year's list because of stock-outs, so the old item numbers are gone; the order itself is
+      the record now. What's below is what still needs grabbing in-store at the counter.
+      (702) 896-7111 ·
+      <a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">store page &amp; hours</a>
     </p>
 
     <ul class="list" data-list="rei">
-      <li class="grp">Water</li>
-      <li><input type="checkbox"><div class="itm"><b>Reliance Aqua-Tainer, 7 gal × 2</b><span><em>14 gal total · ~$25 ea</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Personal water bottles × 2</b><span></span></div><span class="tag t-buy">buy</span></li>
+      <li class="grp">Already ordered</li>
+      <li><input type="checkbox"><div class="itm"><b>Collect the Henderson pickup order</b><span>21 pouches. Bring ID and the order number.<br><a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">rei.com/stores/henderson</a></span></div><span class="tag t-buy">buy</span></li>
 
-      <li class="grp">Meals — 2 servings each</li>
-      <li><input type="checkbox"><div class="itm"><b>Breakfast Skillet</b><span><em>#1756950001 · $12.50 · ×3</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Chicken Fajita Bowl</b><span><em>#1758800001 · $12.50 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Chicken Teriyaki Rice</b><span><em>#1827240001 · $13.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Risotto with Chicken</b><span><em>#8012230010 · $12.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Pad Thai with Chicken</b><span><em>#1342520001 · $12.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Chicken Tikka Masala</b><span><em>#2336290001 · $12.50 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Chicken Pesto Pasta</b><span><em>#1827230001 · $14.95 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Chicken and Dumplings</b><span><em>#1758790001 · $12.50 · ×1</em></span></div><span class="tag t-buy">buy</span></li>
-
-      <li class="grp">Shelf-stable protein &amp; snacks</li>
-      <li><input type="checkbox"><div class="itm"><b>Provisions Wild Pink Salmon</b><span><em>#2559400001 · $10.00</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Provisions Sardines</b><span><em>#2475290002 · $8.00</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Mackerel</b><span><em>#1997430003 · $8.00</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Dried Fruit</b><span><em>#1897710001 · $10.95</em></span></div><span class="tag t-buy">buy</span></li>
-
-      <li class="grp">Heat &amp; food storage</li>
-      <li><input type="checkbox"><div class="itm"><b>Propane canister stove + small pot</b><span><em>~$40</em> — backup to the kettle</span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Isobutane canisters × 2</b><span>Can't fly — Vegas or Reno only</span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Soft collapsible insulated bag</b><span><em>~$20</em> — keeps food out of a 110°F tent without ice</span></div><span class="tag t-buy">buy</span></li>
+      <li class="grp">Grab in-store at the counter</li>
+      <li><input type="checkbox"><div class="itm"><b>Reliance Aqua-Tainer, 7 gal × 2</b><span><em>14 gal total · ~$25 ea</em> — the rectangular handled jug. Check Henderson stock before Thursday; if it's out, a second pickup order today beats finding out at the counter.<br><a class="lnk" href="https://www.rei.com/product/618168/reliance-aqua-tainer-7-gal" target="_blank" rel="noopener">rei.com · Aqua-Tainer 7 gal</a></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Solar shower bag</b><span>Hangs from the camp shade structure and heats in sun. Confirm where camp wants the grey water — runoff can't hit the playa.<br><a class="lnk" href="https://www.rei.com/search?q=solar%20shower" target="_blank" rel="noopener">rei.com · solar showers</a> · <a class="lnk" href="https://www.target.com/s?searchTerm=solar+shower+bag" target="_blank" rel="noopener">target.com</a></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Personal water bottles × 2</b><span><a class="lnk" href="https://www.rei.com/c/water-bottles" target="_blank" rel="noopener">rei.com · water bottles</a></span></div><span class="tag t-buy">buy</span></li>
     </ul>
   </section>
 
@@ -390,8 +385,8 @@ li.done .itm span{color:var(--faint);}
 
     <ul class="list" data-list="hd">
       <li class="grp">Power</li>
-      <li><input type="checkbox"><div class="itm"><b>Outdoor extension cord — 12/3 SJTW, lighted end</b><span>The lighted-end outdoor one. <em>~$35 / 50 ft · ~$70 / 100 ft</em></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Surge-protector power strip, 6 outlet</b><span>Kept for the AC. Keep it bagged and off the ground.</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Outdoor extension cord — 12/3 SJTW, lighted end</b><span>The lighted-end outdoor one. <em>~$35 / 50 ft · ~$70 / 100 ft</em><br><a class="lnk" href="https://www.homedepot.com/s/12-3%20outdoor%20extension%20cord%20lighted%20end" target="_blank" rel="noopener">homedepot.com · 12/3 outdoor cords</a></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Surge-protector power strip, 6 outlet</b><span>Kept for the AC. Keep it bagged and off the ground.<br><a class="lnk" href="https://www.homedepot.com/s/surge%20protector%20power%20strip" target="_blank" rel="noopener">homedepot.com · surge protectors</a></span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>GFCI adapter + outlet tester</b><span></span></div><span class="tag t-buy">buy</span></li>
 
       <li class="grp">Repair &amp; consumables</li>
@@ -416,7 +411,7 @@ li.done .itm span{color:var(--faint);}
 
     <ul class="list" data-list="tg">
       <li class="grp">Heat</li>
-      <li><input type="checkbox"><div class="itm"><b>Electric kettle, 1 L stainless</b><span>Hamilton Beach, <em>~$19.99</em></span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Electric kettle, 1 L stainless</b><span>Hamilton Beach, <em>~$19.99</em><br><a class="lnk" href="https://www.target.com/s?searchTerm=electric+kettle+stainless+1L" target="_blank" rel="noopener">target.com · electric kettles</a></span></div><span class="tag t-buy">buy</span></li>
 
       <li class="grp">Hygiene</li>
       <li><input type="checkbox"><div class="itm"><b>Heavy-duty wipes (Dude wipes), bulk</b><span>Replaces a shower; also cleans cutlery</span></div><span class="tag t-buy">buy</span></li>
@@ -453,7 +448,7 @@ li.done .itm span{color:var(--faint);}
       <li><input type="checkbox"><div class="itm"><b>USB battery bank + multiple cables</b><span>Check the unit first</span></div><span class="tag t-have">storage</span></li>
       <li><input type="checkbox"><div class="itm"><b>Misting spray bottle + handheld fan</b><span></span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Battery fairy lights</b><span>Cheap, and they break — buy extra</span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Lighters, several</b><span>Also lights the propane stove</span></div><span class="tag t-buy">buy</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Lighters, several</b><span></span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Small notebook + pens</b><span>For the What Where When booklet</span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Sewing kit + labels</b><span>Label the borrowed tent's parts too</span></div><span class="tag t-buy">buy</span></li>
     </ul>
@@ -531,7 +526,6 @@ li.done .itm span{color:var(--faint);}
       <li><input type="checkbox"><div class="itm"><b>Fill the two water containers</b><span></span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Cash from an ATM — $100, small bills</b><span>Last reliable machine before the playa</span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Fuel — Fernley or Fallon</b><span>Long empty stretch after; Gerlach lines are long</span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Isobutane canisters, if not bought in Vegas</b><span></span></div><span class="tag t-buy">buy</span></li>
 
       <li class="grp">Sep 7–9 — out</li>
       <li><input type="checkbox"><div class="itm"><b>Offload into the Reno unit</b><span>Bike, cord, chair, pad, bins</span></div><span class="tag t-buy">buy</span></li>
@@ -555,6 +549,7 @@ li.done .itm span{color:var(--faint);}
       <li><input type="checkbox"><div class="itm"><b>Vinegar + spray bottle, moisturizing lotion, repair cream</b><span></span></div></li>
       <li><input type="checkbox"><div class="itm"><b>Sunscreen</b><span>Already have it</span></div></li>
       <li><input type="checkbox"><div class="itm"><b>Towels, comb, tweezers, nail clippers</b><span></span></div></li>
+      <li><input type="checkbox"><div class="itm"><b>Propane stove, isobutane canisters, insulated bag</b><span>Not cooking — the kettle is the only heat source</span></div></li>
       <li><input type="checkbox"><div class="itm"><b>Chocolate, almond butter pouches</b><span>Melted last year</span></div></li>
       <li><input type="checkbox"><div class="itm"><b>Cooler and everything cold</b><span>Frozen vegetables, frozen jugs, fresh fruit, cheese</span></div></li>
       <li><input type="checkbox"><div class="itm"><b>Tent, poles, fly</b><span>From your friends</span></div></li>
