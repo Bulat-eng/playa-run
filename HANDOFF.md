@@ -47,9 +47,9 @@ same half-mile of Boulder Hwy.
   Flamingo, 4001 S Maryland Pkwy** (702-732-2218, 8am–10pm). Ten lines: kettle, DUDE wipes,
   Boka toothpaste, rodent-repellent trash bags, LED mirror, TENCEL sheet set, chunky knit
   blanket, cooling pillow, 2 gal water, smartwater 6pk. Paid on the Target Mastercard.
-- **Home Depot — delivery order placed.** Contents and delivery date not visible (his HD login
-  is `156s2ndstreet@gmail.com` and demanded re-auth; the order emails don't land in
-  milkypillow@). The section is now a confirm-against-the-email checklist.
+- **Home Depot — delivery order placed.** Contents and delivery date not visible: his HD account
+  is on a different address than his main Gmail, and the site demanded re-auth, so the order
+  emails aren't reachable. The section is now a confirm-against-the-email checklist.
 - **REI — #A405567097**, ready since Mon Aug 24, held until **Sun Sep 6**. Collect Thursday.
   (The old #A382376840 in earlier versions of this file was wrong.)
 - **Amazon — #112-6979851-2410603**, shipped in two boxes. Shower bag delivered Wed Aug 26 and
