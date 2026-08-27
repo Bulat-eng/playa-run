@@ -1,7 +1,7 @@
 # Playa Run — handoff
 
 **Burning Man 2026 (Axis Mundi), Aug 30 – Sep 7.** Staged out of Las Vegas.
-Last updated: Wed Aug 26, 2026.
+Last updated: Thu Aug 27, 2026 — car day.
 
 - **Live list:** https://bulat-eng.github.io/playa-run/
 - **Artifact (syncs checkbox progress):** https://claude.ai/code/artifact/64ea8fa4-8d57-46c5-811e-4dfb82e09cef
