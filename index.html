@@ -195,6 +195,10 @@ details.fold[open] .chev{transform:rotate(90deg);}
   font-variant-numeric:tabular-nums;padding-top:1px;
 }
 .slot.pin time{color:var(--alert);font-weight:600;}
+.slot.is-done time{color:var(--faint);}
+.slot.is-done b{color:var(--faint);text-decoration:line-through;text-decoration-thickness:1px;}
+.slot.is-done span{color:var(--faint);}
+.slot.is-done b::before{content:"\2713\00a0\00a0";color:var(--ok);text-decoration:none;}
 .slot b{font-weight:600;display:block;}
 .slot span{display:block;color:var(--muted);font-size:13.5px;line-height:1.45;margin-top:1px;}
 @media (max-width:560px){.slot{grid-template-columns:1fr;gap:2px;}}
@@ -288,15 +292,16 @@ details.fold[open] .chev{transform:rotate(90deg);}
       <h1>Playa Run</h1>
       <div class="mast-meta">
         Black Rock City 2026 · Axis Mundi<br>
-        Car day Thu Aug 27 · RV out Fri Aug 28<br>
+        Thu Aug 27 PM · RV out Fri Aug 28<br>
         Home from Reno Wed Sep 9
       </div>
     </div>
     <p class="dek">
-      Car day. Four orders are placed — Target pickup, Home Depot delivery, REI pickup, Amazon
-      delivered — so <strong>today</strong> is collection plus one short in-store list. The one thing
-      that isn't safe is the AC: UPS says <strong>tomorrow 9:30am–12:30pm</strong> against an
-      <strong>11:00am checkout</strong>.
+      Car, storage, haircut and the Target pickup are done; the Home Depot box landed at the hotel;
+      REI is being collected on the way back. What's left is <strong>Costco by 8:30pm</strong>, the front
+      desk, staging the room, and a <strong>Target gap run until 10pm</strong> — tomorrow has no car.
+      The only thing still in transit is the AC: UPS says <strong>tomorrow 9:30am–12:30pm</strong>
+      against an <strong>11:00am checkout</strong>.
       <span class="tag t-buy">buy</span> <span class="tag t-have">storage</span>
       <span class="tag t-ask">track</span>
     </p>
@@ -304,7 +309,7 @@ details.fold[open] .chev{transform:rotate(90deg);}
 
   <div class="strip">
     <div class="stat is-alert"><span class="stat-k">Today</span><span class="stat-v">Thu <small>Aug 27 · car day</small></span></div>
-    <div class="stat"><span class="stat-k">Stops today</span><span class="stat-v">4 <small>storage, target, costco, rei</small></span></div>
+    <div class="stat"><span class="stat-k">Stops left</span><span class="stat-v">2 <small>rei, costco</small></span></div>
     <div class="stat is-alert"><span class="stat-k">AC arrives</span><span class="stat-v">Fri <small>9:30a–12:30p</small></span></div>
     <div class="stat is-ok"><span class="stat-k">Water hauling</span><span class="stat-v">14 <small>gal + camp</small></span></div>
     <div class="stat"><span class="stat-k">Cash</span><span class="stat-v">$100 <small>small bills</small></span></div>
@@ -322,13 +327,15 @@ details.fold[open] .chev{transform:rotate(90deg);}
     <ul class="clock">
       <li>
         <div class="day"><span>Today · Thu Aug 27</span><em>car day · working</em></div>
-        <div class="slot pin"><time>Before you go</time><div><b>Front desk — three things in one conversation</b><span>Collect the Nuun (Amazon delivered it Mon Aug 24 under your reservation name). Tell them a UPS box lands tomorrow morning and to hold it. Ask for late checkout.</span></div></div>
-        <div class="slot pin"><time>10:30am</time><div><b>Car pickup — Enterprise, 3745 Boulder Hwy</b><span>Bring the Costco card; Enterprise requires it. You need it again at the warehouse.</span></div></div>
-        <div class="slot"><time>Around work</time><div><b>Storage unit — inventory first, load last</b><span>Goggles, headlamp, battery bank, cutlery. Mark what's missing before Target; you need the boot space anyway.</span></div></div>
-        <div class="slot"><time>—</time><div><b>Target — 4001 S Maryland Pkwy</b><span>Collect the pickup order, then walk the in-store list in section 03. Open 8am–10pm.</span></div></div>
-        <div class="slot"><time>—</time><div><b>Costco — 3411 St Rose Pkwy, Henderson</b><span>Batteries and socks. Closes 8:30pm.</span></div></div>
-        <div class="slot"><time>—</time><div><b>REI Henderson — 2220 Village Walk Dr</b><span>Last stop, biggest load: 27 pouches and two 7-gal Aqua-Tainers. Closes 9pm.</span></div></div>
-        <div class="slot"><time>Evening</time><div><b>Load the unit, stage everything in the hotel room</b><span>Seats down. Friday is then just carrying.</span></div></div>
+        <div class="slot is-done"><time>10:30am</time><div><b>Car pickup — Enterprise, 3745 Boulder Hwy</b><span>Done. Keep the Costco card on you; the warehouse wants it again tonight.</span></div></div>
+        <div class="slot is-done"><time>Morning</time><div><b>Storage unit — inventoried and loaded</b><span>Done. What it actually held gets settled when you lay it out in the room.</span></div></div>
+        <div class="slot is-done"><time>—</time><div><b>Target — pickup order collected</b><span>Done. The in-store list in section 03 is now the gap run, after staging.</span></div></div>
+        <div class="slot is-done"><time>—</time><div><b>Haircut</b><span></span></div></div>
+        <div class="slot"><time>On the way back</time><div><b>REI Henderson — 2220 Village Walk Dr</b><span>27 pouches and two 7-gal Aqua-Tainers. Closes 9pm.</span></div></div>
+        <div class="slot pin"><time>By 8:30pm</time><div><b>Costco — 3411 St Rose Pkwy, Henderson</b><span>Batteries and socks. <b>Earliest close of the night</b> — 8:30pm, before REI's 9pm and Target's 10pm. If both are still open, this one goes first.</span></div></div>
+        <div class="slot"><time>At the hotel</time><div><b>Front desk — collect two things, leave one instruction</b><span>The Home Depot box and the Nuun (delivered Mon Aug 24, under your reservation name). Then: a UPS box lands tomorrow morning, hold it, and can you have late checkout.</span></div></div>
+        <div class="slot"><time>Evening</time><div><b>Stage the room — lay it all out, clean up, list the gaps</b><span>Seats down, unit emptied, Home Depot box opened against section 05. Everything you own for this trip in one place is the only way the missing items show up.</span></div></div>
+        <div class="slot pin"><time>Until 10pm</time><div><b>Gap run — Target Flamingo, 4001 S Maryland Pkwy</b><span>Last call, and the last day with a car. Whatever staging says is missing gets bought tonight or doesn't come.</span></div></div>
       </li>
 
       <li>
@@ -358,14 +365,14 @@ details.fold[open] .chev{transform:rotate(90deg);}
     <summary>
       <span class="sec-num">02</span>
       <h2>Target · pickup order</h2>
-      <span class="done-tag">placed · collect today</span>
+      <span class="done-tag">collected</span>
       <span class="chev">&#9656;</span>
     </summary>
     <div class="fold-body">
       <p class="sec-note">
-        <strong>#102003506421687 · $278.01 · processing.</strong> Order Pickup at
-        <strong>Las Vegas Flamingo, 4001 S Maryland Pkwy</strong> — (702) 732-2218, open 8am–10pm.
-        Paid on the Target Mastercard, 5% Circle discount applied. Pickup person is you; photo ID.
+        <strong>#102003506421687 · $278.01 · collected Thu Aug 27.</strong> Picked up at
+        <strong>Las Vegas Flamingo, 4001 S Maryland Pkwy</strong>. Ten lines, all in hand — check them
+        against the room when you stage.
         <a class="lnk" href="https://www.target.com/orders/102003506421687" target="_blank" rel="noopener">order details</a>
       </p>
 
@@ -382,9 +389,6 @@ details.fold[open] .chev{transform:rotate(90deg);}
         <li><b>smartwater, 6pk × 33.8 fl oz</b> — $8.99</li>
       </ul>
 
-      <ul class="list" data-list="tgorder">
-        <li><input type="checkbox"><div class="itm"><b>Collect the pickup order — today</b><span>Same trip as the in-store list below. Bring photo ID.<br><a class="lnk" href="https://www.target.com/sl/las-vegas-flamingo/265" target="_blank" rel="noopener">target.com · Las Vegas Flamingo</a></span></div><span class="tag t-ask">to do</span></li>
-      </ul>
     </div>
   </details>
 
@@ -393,11 +397,13 @@ details.fold[open] .chev{transform:rotate(90deg);}
     <div class="sec-head">
       <span class="sec-num">03</span>
       <h2>Target · in store</h2>
-      <span class="sec-tag">Today · same trip</span>
+      <span class="sec-tag">Tonight · the gap run</span>
     </div>
     <p class="sec-note">
-      What the pickup order <strong>doesn't</strong> cover. Kettle, wipes, toothpaste, mirror and
-      water are already bought — everything below still has to come off a shelf while you're there.
+      What the pickup order <strong>doesn't</strong> cover, plus whatever staging the room turns up.
+      <strong>Flamingo is open until 10pm</strong> and tomorrow has no car — this list closes tonight.
+      Walk it with the room laid out, not from memory.
+      <a class="lnk" href="https://www.target.com/sl/las-vegas-flamingo/265" target="_blank" rel="noopener">target.com · Las Vegas Flamingo</a>
     </p>
 
     <ul class="list" data-list="tgstore">
@@ -425,14 +431,14 @@ details.fold[open] .chev{transform:rotate(90deg);}
       <li><input type="checkbox"><div class="itm"><b>Single-serve pickle pouches</b><span>Shelf-stable, unlike a jar, and loaded with electrolytes</span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Instant ramen, tea packets, small hot sauce</b><span></span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Hard candy, nut bars</b><span>No chocolate</span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Washable bowl, plate, cup, silverware</b><span>Check the unit first</span></div><span class="tag t-have">storage</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Washable bowl, plate, cup, silverware</b><span>Confirm when you stage the room</span></div><span class="tag t-have">storage</span></li>
 
       <li class="grp">Kit</li>
       <li><input type="checkbox"><div class="itm"><b>Ziplocs — gallon and quart</b><span>Wipes, meds, TP, food, trash</span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>USB battery bank + multiple cables</b><span>Check the unit first</span></div><span class="tag t-have">storage</span></li>
+      <li><input type="checkbox"><div class="itm"><b>USB battery bank + multiple cables</b><span>Confirm when you stage the room</span></div><span class="tag t-have">storage</span></li>
       <li><input type="checkbox"><div class="itm"><b>Night lighting — battery fairy lights, clip-on blinkies</b><span>Being visible after dark isn't optional. Cheap, and they break — buy extra.</span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Misting spray bottle + handheld fan</b><span></span></div><span class="tag t-buy">buy</span></li>
-      <li><input type="checkbox"><div class="itm"><b>Goggles + headlamp — only if the unit comes up short</b><span>Both were priority 1 and neither got ordered. Confirm at the storage unit before you leave it; Target is the fallback the same afternoon. Goggles need a clear lens — they have to work at night.</span></div><span class="tag t-ask">check</span></li>
+      <li><input type="checkbox"><div class="itm"><b>Goggles + headlamp — unless they came out of the unit</b><span>Both were priority 1 and neither got ordered. The unit is emptied, so staging settles it: if they aren't on the floor tonight, buy them tonight. Goggles need a clear lens — they have to work at night.</span></div><span class="tag t-ask">check</span></li>
       <li><input type="checkbox"><div class="itm"><b>Lighters, several</b><span></span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Small notebook + pens</b><span>For the What Where When booklet</span></div><span class="tag t-buy">buy</span></li>
       <li><input type="checkbox"><div class="itm"><b>Sewing kit + labels</b><span>Label the borrowed tent's parts too</span></div><span class="tag t-buy">buy</span></li>
@@ -444,12 +450,13 @@ details.fold[open] .chev{transform:rotate(90deg);}
     <div class="sec-head">
       <span class="sec-num">04</span>
       <h2>Costco</h2>
-      <span class="sec-tag">Today</span>
+      <span class="sec-tag">Tonight · closes first</span>
     </div>
     <p class="sec-note">
       <strong>SW Henderson #1320, 3411 St Rose Pkwy</strong> — (702) 803-7044, closes 8:30pm weekdays.
-      Roughly ten minutes from the REI pickup, so it slots in ahead of it. The membership card is
-      already in your pocket for Enterprise.
+      Roughly ten minutes from REI. <strong>8:30pm is the earliest close of the night</strong> — ahead of
+      REI at 9pm and Target at 10pm — so if anything gets cut, cut it from the other two. The
+      membership card is already in your pocket from Enterprise.
       <a class="lnk" href="https://www.google.com/maps/search/?api=1&amp;query=Costco+3411+St+Rose+Pkwy+Henderson+NV+89052" target="_blank" rel="noopener">directions</a>
     </p>
 
@@ -464,22 +471,20 @@ details.fold[open] .chev{transform:rotate(90deg);}
     <summary>
       <span class="sec-num">05</span>
       <h2>Home Depot</h2>
-      <span class="done-tag">ordered · delivery</span>
+      <span class="done-tag">delivered · at the hotel</span>
       <span class="chev">&#9656;</span>
     </summary>
     <div class="fold-body">
       <p class="sec-note">
-        <strong>Placed as a delivery order</strong>, so today no longer has a Home Depot stop.
-        Two things I couldn't read off your account — tick them off against the confirmation email:
-        the <strong>delivery date</strong> and the <strong>delivery address</strong>. If it's landing at
-        Boulder Station it inherits the same Friday 11am wall as the AC.
+        <strong>Landed at the hotel</strong> — that answers both open questions, date and address, and
+        it means only the AC is still in transit. You've confirmed the <strong>cord</strong>; the rest of
+        the order is unverified. Open the box while you stage the room and tick it off against this list.
+        Anything that isn't in there goes on tonight's Target run.
       </p>
-
-      <p class="sec-note">Check the order actually contains all of this:</p>
 
       <ul class="list" data-list="hd">
         <li class="grp">Power</li>
-        <li><input type="checkbox"><div class="itm"><b>Outdoor extension cord — 12/3 SJTW, lighted end</b><span>12/3, not 10 AWG — at 2–5 A camp draw the gauge difference is invisible and it's half the price. <em>~$35 / 50 ft · ~$70 / 100 ft</em></span></div><span class="tag t-ask">confirm</span></li>
+        <li><input type="checkbox"><div class="itm"><b>Outdoor extension cord — 12/3 SJTW, lighted end</b><span>Delivered to the hotel and in your hands. 12/3, not 10 AWG — at 2–5 A camp draw the gauge difference is invisible and it's half the price.</span></div><span class="tag t-have">in hand</span></li>
         <li><input type="checkbox"><div class="itm"><b>Surge-protector power strip, 6 outlet</b><span>For the AC. Keep it bagged and off the ground.</span></div><span class="tag t-ask">confirm</span></li>
         <li><input type="checkbox"><div class="itm"><b>GFCI adapter + outlet tester</b><span></span></div><span class="tag t-ask">confirm</span></li>
 
@@ -494,7 +499,7 @@ details.fold[open] .chev{transform:rotate(90deg);}
         <li><input type="checkbox"><div class="itm"><b>LED lantern</b><span>Hangable light inside the tent</span></div><span class="tag t-ask">confirm</span></li>
 
         <li class="grp">Anything missing</li>
-        <li><input type="checkbox"><div class="itm"><b>Gaps go on the Target run</b><span>Today is the last day with a car. Whatever the delivery leaves out, buy it at the Flamingo store.<br><a class="lnk" href="https://www.homedepot.com/s/12-3%20outdoor%20extension%20cord%20lighted%20end" target="_blank" rel="noopener">homedepot.com · 12/3 outdoor cords</a></span></div><span class="tag t-ask">check</span></li>
+        <li><input type="checkbox"><div class="itm"><b>Gaps go on tonight's Target run</b><span>Tomorrow has no car. Whatever the box leaves out, buy it at the Flamingo store before 10pm.<br><a class="lnk" href="https://www.homedepot.com/s/12-3%20outdoor%20extension%20cord%20lighted%20end" target="_blank" rel="noopener">homedepot.com · 12/3 outdoor cords</a></span></div><span class="tag t-ask">check</span></li>
       </ul>
     </div>
   </details>
@@ -504,15 +509,15 @@ details.fold[open] .chev{transform:rotate(90deg);}
     <summary>
       <span class="sec-num">06</span>
       <h2>REI</h2>
-      <span class="done-tag">bought · collect today</span>
+      <span class="done-tag">bought · collecting now</span>
       <span class="chev">&#9656;</span>
     </summary>
     <div class="fold-body">
       <p class="sec-note">
         <strong>Order #A405567097 — ready since Mon Aug 24.</strong> Waiting at
         <strong>Henderson, 2220 Village Walk Dr</strong> — (702) 896-7111, closes 9pm weekdays.
-        REI will hold it until <strong>Sun Sep 6</strong>, so today has slack, but it's the heaviest
-        load of the day and it's all your food.
+        REI will hold it until <strong>Sun Sep 6</strong>, but it's the heaviest load of the day and it's
+        all your food — you're picking it up on the way back. Closes 9pm.
         <a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">store page &amp; hours</a>
       </p>
 
@@ -523,7 +528,7 @@ details.fold[open] .chev{transform:rotate(90deg);}
       </ul>
 
       <ul class="list" data-list="rei">
-        <li><input type="checkbox"><div class="itm"><b>Collect the pickup order — today</b><span>Bring photo ID and order #A405567097. Last stop of the day.<br><a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">rei.com/stores/henderson</a></span></div><span class="tag t-ask">to do</span></li>
+        <li><input type="checkbox"><div class="itm"><b>Collect the pickup order — on the way back</b><span>Photo ID and order #A405567097.<br><a class="lnk" href="https://www.rei.com/stores/henderson" target="_blank" rel="noopener">rei.com/stores/henderson</a></span></div><span class="tag t-ask">to do</span></li>
       </ul>
     </div>
   </details>
@@ -540,7 +545,7 @@ details.fold[open] .chev{transform:rotate(90deg);}
       <p class="sec-note">
         <strong>Order #112-6979851-2410603 shipped in two boxes.</strong> The shower bag is in your
         hands. The Nuun landed separately on <strong>Mon Aug 24</strong> and is still at the hotel —
-        ask the front desk under your reservation name.
+        collect it with the Home Depot box, under your reservation name.
       </p>
 
       <ul class="recap">
@@ -548,7 +553,7 @@ details.fold[open] .chev{transform:rotate(90deg);}
       </ul>
 
       <ul class="list" data-list="amz">
-        <li><input type="checkbox"><div class="itm"><b>Nuun electrolyte tablets — collect from the front desk</b><span>40 servings at $0.39 each, four times cheaper than Target's. Delivered Mon Aug 24. Collect it on your way out this morning, not on checkout morning.</span></div><span class="tag t-ask">to do</span></li>
+        <li><input type="checkbox"><div class="itm"><b>Nuun electrolyte tablets — collect from the front desk</b><span>40 servings at $0.39 each, four times cheaper than Target's. Delivered Mon Aug 24. Same trip to the desk as the Home Depot box — don't leave it for checkout morning.</span></div><span class="tag t-ask">to do</span></li>
         <li><input type="checkbox"><div class="itm"><b>Both into the checked bags</b><span>Neither is flying carry-on.</span></div><span class="tag t-ask">to do</span></li>
       </ul>
     </div>
@@ -565,8 +570,8 @@ details.fold[open] .chev{transform:rotate(90deg);}
       <strong>The AC is the one real exposure left.</strong> UPS has it in Hodgkins, IL as of Wednesday
       evening on Ground service, estimating <strong>Friday 9:30am–12:30pm</strong> into Las Vegas.
       Checkout is 11:00am and the RV window opens at 1pm — so the delivery can plausibly land after
-      you've handed back the room and before you've left town. Decide today which way you want to
-      cover it.
+      you've handed back the room and before you've left town. The Home Depot box already landed, so
+      this is the last thing outstanding. Settle it at the desk tonight.
     </p>
 
     <ul class="list" data-list="track">
@@ -576,8 +581,8 @@ details.fold[open] .chev{transform:rotate(90deg);}
       <li><input type="checkbox"><div class="itm"><b>Fallback: UPS My Choice redirect to an Access Point</b><span>Only if the bell desk won't hold it. Pick a location on Boulder Hwy or near the RV depot and set it tonight — you can't redirect once it's out for delivery.</span></div><span class="tag t-ask">track</span></li>
       <li><input type="checkbox"><div class="itm"><b>Re-check the estimate tonight</b><span>Ground from Chicago to Vegas in two days is tight. If it slips to Monday it isn't coming with you, and that changes the shade plan — tell camp early.</span></div><span class="tag t-ask">track</span></li>
 
-      <li class="grp">Home Depot delivery</li>
-      <li><input type="checkbox"><div class="itm"><b>Confirm the delivery date and address</b><span>Off the confirmation email. If it's the hotel, it hits the same Friday 11am wall as the AC and the bell desk needs to know about two boxes, not one.</span></div><span class="tag t-ask">track</span></li>
+      <li class="grp">Home Depot · delivered to the hotel</li>
+      <li><input type="checkbox"><div class="itm"><b>Open the box against section 05</b><span>The cord is confirmed; the other ten lines aren't. Do it while the room is staged, so the gaps make it onto the Target run.</span></div><span class="tag t-ask">check</span></li>
 
       <li class="grp">Booked</li>
       <li><input type="checkbox"><div class="itm"><b>Reno car, Sep 7–9, drop at RNO</b><span>Covers the storage-unit offload and the Wednesday airport run.</span></div><span class="tag t-ask">track</span></li>

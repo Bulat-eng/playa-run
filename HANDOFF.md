@@ -1,7 +1,8 @@
 # Playa Run — handoff
 
 **Burning Man 2026 (Axis Mundi), Aug 30 – Sep 7.** Staged out of Las Vegas.
-Last updated: Thu Aug 27, 2026 — car day.
+Last updated: Thu Aug 27, 2026 — car day, afternoon. Car, storage, haircut and the Target
+pickup are done; REI is being collected on the way back; the Home Depot box landed at the hotel.
 
 - **Live list:** https://bulat-eng.github.io/playa-run/
 - **Artifact (syncs checkbox progress):** https://claude.ai/code/artifact/64ea8fa4-8d57-46c5-811e-4dfb82e09cef
@@ -43,30 +44,32 @@ same half-mile of Boulder Hwy.
 ## Status
 
 **Done**
-- **Target — pickup order placed.** #102003506421687, $278.01, Order Pickup at **Las Vegas
-  Flamingo, 4001 S Maryland Pkwy** (702-732-2218, 8am–10pm). Ten lines: kettle, DUDE wipes,
-  Boka toothpaste, rodent-repellent trash bags, LED mirror, TENCEL sheet set, chunky knit
-  blanket, cooling pillow, 2 gal water, smartwater 6pk. Paid on the Target Mastercard.
-- **Home Depot — delivery order placed.** Contents and delivery date not visible: his HD account
-  is on a different address than his main Gmail, and the site demanded re-auth, so the order
-  emails aren't reachable. The section is now a confirm-against-the-email checklist.
-- **REI — #A405567097**, ready since Mon Aug 24, held until **Sun Sep 6**. Collect Thursday.
-  (The old #A382376840 in earlier versions of this file was wrong.)
-- **Amazon — #112-6979851-2410603**, shipped in two boxes. Shower bag delivered Wed Aug 26 and
-  is in his hands. Nuun delivered Mon Aug 24 and is **still at the hotel front desk**.
+- **Car picked up** Thu 10:30am, Enterprise 3745 Boulder Hwy. Haircut done.
+- **Storage unit emptied** — contents not itemised yet. He is staging everything in the hotel room,
+  cleaning up, and working out what's missing from that. The gap list lands on tonight's Target run.
+- **Target — pickup order collected.** #102003506421687, $278.01, Las Vegas Flamingo. Ten lines in hand:
+  kettle, DUDE wipes, Boka toothpaste, rodent-repellent trash bags, LED mirror, TENCEL sheet set,
+  chunky knit blanket, cooling pillow, 2 gal water, smartwater 6pk.
+- **Home Depot — delivered to the hotel.** That closes both open questions (date, address). He named
+  the **cord** specifically; the other ten lines in that order are unverified, so the section is now
+  "open the box against this list while staging".
+- **REI — #A405567097**, collecting on the way back this afternoon. Henderson, 2220 Village Walk Dr,
+  closes 9pm. Held until Sun Sep 6 if it slips.
+- **Amazon — #112-6979851-2410603.** Shower bag in hand.
 
 **Open**
-- **AC unit — the one real exposure.** Costco order, UPS **1Z824E850314932879**, Ground, last
-  scanned Hodgkins IL Wed 5:39pm, estimated **Fri Aug 28 9:30am–12:30pm** into Las Vegas.
-  Checkout is 11:00am. Plan on the page: bell desk holds it → late checkout → UPS Access Point
-  redirect as fallback → re-check the estimate Thursday night.
-- **Costco run, Thursday** — batteries (moved off the Target list) and socks. SW Henderson
-  #1320, 3411 St Rose Pkwy, closes 8:30pm. Slots in before the REI pickup.
-- **Target in-store list, Thursday** — everything the pickup order doesn't cover: hygiene,
-  medical, sleep, shelf-stable food, kit. Same visit as the collection.
-- **Goggles and headlamp** — still unbought. Confirm at the storage unit Thursday; Target the
-  same afternoon if missing.
-- **Home Depot delivery date and address** — unconfirmed.
+- **AC unit — the only thing still in transit.** Costco order, UPS **1Z824E850314932879**, Ground,
+  last scanned Hodgkins IL Wed 5:39pm, estimated **Fri Aug 28 9:30am–12:30pm** into Las Vegas.
+  Checkout is 11:00am. Bell desk holds it → late checkout → UPS Access Point redirect as fallback →
+  re-check the estimate tonight.
+- **Front desk, tonight** — collect the Home Depot box **and** the Nuun (delivered Mon Aug 24, still
+  there), tell them about tomorrow's UPS box, ask for late checkout. One conversation.
+- **Costco run** — batteries and socks. SW Henderson #1320, 3411 St Rose Pkwy. **Closes 8:30pm — the
+  earliest close of the night**, ahead of REI 9pm and Target 10pm. If anything gets cut, cut the others.
+- **Stage the room**, then the **Target gap run** — Flamingo until 10pm. Tomorrow has no car, so the
+  in-store list (section 03) closes tonight.
+- **Goggles and headlamp** — still unbought. Staging settles it: if they didn't come out of the unit,
+  buy them tonight.
 
 ## Decisions worth not re-litigating
 
