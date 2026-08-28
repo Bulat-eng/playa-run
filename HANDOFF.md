@@ -45,7 +45,7 @@ same half-mile of Boulder Hwy.
 
 **Done**
 - **Car picked up** Thu 10:30am, Enterprise 3745 Boulder Hwy. Haircut done.
-- **Storage unit emptied** — contents not itemised yet. He is staging everything in the hotel room,
+- **Storage unit emptied** — **socks found**, so they came off the Costco list. Rest not itemised yet. He is staging everything in the hotel room,
   cleaning up, and working out what's missing from that. The gap list lands on tonight's Target run.
 - **Target — pickup order collected.** #102003506421687, $278.01, Las Vegas Flamingo. Ten lines in hand:
   kettle, DUDE wipes, Boka toothpaste, rodent-repellent trash bags, LED mirror, TENCEL sheet set,
@@ -64,8 +64,9 @@ same half-mile of Boulder Hwy.
   re-check the estimate tonight.
 - **Front desk, tonight** — collect the Home Depot box **and** the Nuun (delivered Mon Aug 24, still
   there), tell them about tomorrow's UPS box, ask for late checkout. One conversation.
-- **Costco run** — batteries and socks. SW Henderson #1320, 3411 St Rose Pkwy. **Closes 8:30pm — the
-  earliest close of the night**, ahead of REI 9pm and Target 10pm. If anything gets cut, cut the others.
+- **Costco run — batteries only.** Socks came out of the storage unit, so the stop is down to one
+  line. SW Henderson #1320, 3411 St Rose Pkwy, closes 8:30pm — the earliest close of the night.
+  Target sells batteries too, so the stop may not earn the Henderson drive; his call.
 - **Stage the room**, then the **Target gap run** — Flamingo until 10pm. Tomorrow has no car, so the
   in-store list (section 03) closes tonight.
 - **Goggles and headlamp** — still unbought. Staging settles it: if they didn't come out of the unit,
@@ -116,9 +117,10 @@ Republish the artifact from the same path with
 - Item keys are `data-list` + position, so **reordering a list shifts its saved state.** The
   Aug 26 rewrite reordered and renamed the lists, so `LOCAL_KEY` moved to `playa-run-v6` — old
   ticks are intentionally dropped rather than landing on the wrong rows.
-- **The GitHub push is held.** The page now carries the UPS tracking number and the Target,
-  REI and Amazon order numbers; Pages is public. The artifact is private and has them. Ask
-  before pushing, or strip the identifiers from the public copy first.
+- **The public page already carries the identifiers.** The UPS tracking number and the Target,
+  REI and Amazon order numbers are in `origin/main` and live on Pages — pushed before Aug 27, so
+  the older "push is held" note was stale. Pushing further edits exposes nothing new. If he ever
+  wants them off, it needs a history rewrite, not just an edit.
 
 ## Style notes
 
